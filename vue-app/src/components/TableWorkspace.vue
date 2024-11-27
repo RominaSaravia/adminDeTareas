@@ -1,17 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, onBeforeMount, onBeforeUpdate } from 'vue'
-
-// defineProps({
-//     tableName: {
-//         type: String,
-//         required: true,
-//     },
-//     tableItems: {
-//         type: Array,
-//         required: true,
-//     }
-// })
-
+import ModalForm from './ModalForm.vue'
 
 </script>
 
@@ -50,13 +38,18 @@ export default {
     },
     mounted() {
         this.filterTableItems();
-        console.log('mounted');
     },
-    beforeUpdate(){
-        console.log('table call ',this.taskList);
+    beforeUpdate(){  
     }
 
 }
+
+
+
+////////////////////////////////////////////
+
+
+
 </script>
 
 <template>
@@ -66,7 +59,8 @@ export default {
                 <th scope="col">#</th>
                 <th scope="col">{{ tableName }}</th>
                 <th scope="col">
-                    <button type="button" class="btn btn-outline-success" v-on:click="$emit('new-task', this.tableName)">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" :data-bs-whatever="tableName"  >+</button>
+                    <!-- <button type="button" class="btn btn-outline-success" v-on:click="$emit('new-task', this.tableName)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-plus-square" viewBox="0 0 16 16">
                             <path
@@ -76,21 +70,21 @@ export default {
                                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
                             </path>
                         </svg>
-                    </button>
+                    </button> -->
                 </th>
             </tr>
         </thead>
         <tbody>
             
-            <tr v-for="(item, index) in this.tableItems" v-bind:nombre item.nombre>
+            <tr v-for="(item, index) in this.tableItems" v-bind:nombre item.nombre >
                 <div v-if="item.tableName == this.tableName" >
                 <th scope="row">#{{ index }}</th>
                 <td>
                     <input 
                     type="text" 
-                    name="item.id" 
-                    id="item.id" 
-                    v-model=" item.nombre" 
+                    :name="item.id" 
+                    :id="item.id"
+                    v-model="item.nombre" 
                     @change="$emit('update-task', item)">
                     
                 </td>
@@ -100,6 +94,7 @@ export default {
 
         </tbody>
     </table>
+
 </template>
 
 <style scoped>

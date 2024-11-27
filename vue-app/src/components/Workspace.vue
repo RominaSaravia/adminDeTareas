@@ -1,21 +1,22 @@
 <script setup>
 import TableWorkspace from './TableWorkspace.vue'
+import ModalForm from './ModalForm.vue'
 import { ref, reactive,onMounted,onBeforeMount ,onBeforeUpdate } from 'vue'
 
 
 let taskList = reactive([
     {
-        id:"0001",
+        id:1,
         nombre:"Tarea a realizar",
         tableName:"Backlog",
     },
     {
-        id:"0002",
+        id:2,
         nombre:"Tarea a realizar",
         tableName:"In Progress",
     },
     {
-        id:"0003",
+        id:3,
         nombre:"Tarea a realizar",
         tableName:"Finalizadas",
     }
@@ -25,9 +26,11 @@ let workTables = reactive(new Set());
 
 
 function addNewItem(e){
+    console.log("addNewTask: ", e)
     taskList.push({
-        nombre: "nueva tarea",
-        tableName:e,
+        id: getTaskId(),
+        nombre: e.nombre,
+        tableName:e.tableName,
     });   
 
 }
@@ -45,6 +48,11 @@ function updateItemTable(updatedItem){
 
 }
 
+function getTaskId(){
+    return taskList.length + 1
+}
+
+
 onBeforeMount(()=> {
   for (let index = 0; index < taskList.length; index++) {
     const element = taskList[index];
@@ -57,6 +65,13 @@ onBeforeUpdate(()=> {
     console.log(this.taskList)
 })
 
+
+///////////////////////////
+
+
+
+
+
 </script>
 
 
@@ -66,16 +81,23 @@ onBeforeUpdate(()=> {
     <TableWorkspace tableName = "In Progress" v-bind:tableItems = "taskList" v-on:new-task = "addNewItem"></TableWorkspace>
     <TableWorkspace tableName = "Tareas Finalizadas" v-bind:tableItems = "taskList"  v-on:new-task = "addNewItem"></TableWorkspace>
     </div> -->
+   
 
     <div class="container table-container">
     <TableWorkspace v-for="(item,index) in workTables" 
     v-bind:tableName = item  
     v-model:tableItems = "taskList" 
-    v-on:new-task = "addNewItem"
+    
     v-on:update-task = "updateItemTable"
     ></TableWorkspace>
 
     </div>
+
+    <ModalForm 
+    v-on:new-task = "addNewItem"
+    > </ModalForm>
+
+
 </template>
 
 <style scoped>
