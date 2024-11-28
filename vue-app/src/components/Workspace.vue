@@ -1,7 +1,7 @@
 <script setup>
 import TableWorkspace from './TableWorkspace.vue'
 import ModalForm from './ModalForm.vue'
-import ModalFormV2 from './ModalFormV2.vue'
+import SideModal from './SideModal.vue'
 import { ref, reactive,onMounted,onBeforeMount ,onBeforeUpdate } from 'vue'
 
 
@@ -51,6 +51,18 @@ function getTaskId(){
     return taskList.length + 1
 }
 
+function updateTableName(updatedTable){
+    for (let index = 0; index < taskList.length; index++) {
+        if(taskList[index].id == updatedItem.id)
+        {
+            taskList[index].nombre = updatedItem.nombre;
+            return;
+        }
+        
+    }
+
+}
+
 
 onBeforeMount(()=> {
   for (let index = 0; index < taskList.length; index++) {
@@ -90,6 +102,11 @@ onBeforeUpdate(()=> {
     v-bind:workTablesOptions = workTables 
     v-on:new-task = "addNewItem"
     > </ModalForm>
+
+    <SideModal 
+    v-bind:workTablesOptions = workTables 
+    v-on:update-table-name = "updateTableName"
+    > </SideModal>
 
 
 </template>
