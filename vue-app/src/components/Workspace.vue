@@ -27,8 +27,6 @@ let workTables = reactive(new Set());
 
 
 function addNewItem(e){
-    console.log("addNewTask: ", e)
-    console.log("addNewTask: ", taskList)
     taskList.push({
         id: getTaskId(),
         nombre: e.nombre,
@@ -38,7 +36,6 @@ function addNewItem(e){
 }
 
 function updateItemTable(updatedItem){
-    console.log("updateItemTable", taskList)
     for (let index = 0; index < taskList.length; index++) {
         if(taskList[index].id == updatedItem.id)
         {
@@ -52,10 +49,6 @@ function updateItemTable(updatedItem){
 
 function getTaskId(){
     return taskList.length + 1
-}
-
-function handlerEvento(e){
-    console.log(e)
 }
 
 
@@ -82,12 +75,6 @@ onBeforeUpdate(()=> {
 
 
 <template>
-    <!-- <div class="container table-container">
-    <TableWorkspace tableName = "Backlog" v-bind:tableItems = "taskList" v-on:new-task = "addNewItem"></TableWorkspace>
-    <TableWorkspace tableName = "In Progress" v-bind:tableItems = "taskList" v-on:new-task = "addNewItem"></TableWorkspace>
-    <TableWorkspace tableName = "Tareas Finalizadas" v-bind:tableItems = "taskList"  v-on:new-task = "addNewItem"></TableWorkspace>
-    </div> -->
-   
 
     <div class="container table-container">
     <TableWorkspace v-for="(item,index) in workTables" 
