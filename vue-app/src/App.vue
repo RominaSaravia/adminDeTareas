@@ -7,6 +7,7 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <div class="wrapper">
       <nav>
+        <img src="./assets/logo-task.png" alt="Pro-task">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
@@ -71,7 +72,7 @@ nav a:first-of-type {
 
   nav {
     text-align: left;
-    margin-left: -1rem;
+    margin-left: 0;
     font-size: 1rem;
 
     padding: 1rem 0;
