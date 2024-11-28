@@ -1,6 +1,7 @@
 <script setup>
 import TableWorkspace from './TableWorkspace.vue'
 import ModalForm from './ModalForm.vue'
+import ModalFormV2 from './ModalFormV2.vue'
 import { ref, reactive,onMounted,onBeforeMount ,onBeforeUpdate } from 'vue'
 
 
@@ -27,6 +28,7 @@ let workTables = reactive(new Set());
 
 function addNewItem(e){
     console.log("addNewTask: ", e)
+    console.log("addNewTask: ", taskList)
     taskList.push({
         id: getTaskId(),
         nombre: e.nombre,
@@ -50,6 +52,10 @@ function updateItemTable(updatedItem){
 
 function getTaskId(){
     return taskList.length + 1
+}
+
+function handlerEvento(e){
+    console.log(e)
 }
 
 
@@ -94,6 +100,7 @@ onBeforeUpdate(()=> {
     </div>
 
     <ModalForm 
+    v-bind:workTablesOptions = workTables 
     v-on:new-task = "addNewItem"
     > </ModalForm>
 
@@ -104,6 +111,7 @@ onBeforeUpdate(()=> {
 .table-container{
     display: flex;
     flex-direction: row;
+    place-items: flex-start;
 
 }
 </style>
