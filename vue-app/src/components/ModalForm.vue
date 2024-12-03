@@ -21,8 +21,8 @@ export default {
     },
     data: function () {
         return {
-          modaltaskName: reactive("task"),
-          modaltableName:reactive("Backlog"),
+          modaltaskName: reactive("new Task"),
+          modaltableName:reactive(""),
         }
     }, components: {},
     methods: {},
@@ -54,6 +54,8 @@ export default {
         console.log('table call ',this.taskList);
     }
 }
+
+
 </script>
 
 <template>

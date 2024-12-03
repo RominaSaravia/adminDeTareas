@@ -7,9 +7,9 @@ import HelloWorld from './components/HelloWorld.vue'
   <header>
     <div class="wrapper">
       <nav>
-        <img src="./assets/logo-task.png" alt="Pro-task">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <img src="./assets/logo-task.png" alt="Pro-task" id="page-logo">
+        <!-- <RouterLink to="/">Home</RouterLink> -->
+        <!-- <RouterLink to="/about">About</RouterLink> -->
       </nav>
     </div>
   </header>
@@ -79,4 +79,24 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
+#page-logo:hover{    
+        animation: logoMove 2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes logoMove {
+        from{
+            left: 0px;
+            top: 0px;
+
+        }
+        to{
+            top: 10px;
+            transform: rotate(360deg) scale(0.9);
+
+        }
+    }
 </style>

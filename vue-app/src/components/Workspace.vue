@@ -1,8 +1,8 @@
 <script setup>
 import TableWorkspace from './TableWorkspace.vue'
 import ModalForm from './ModalForm.vue'
-import SideModal from './SideModal.vue'
-import { ref, reactive,onMounted,onBeforeMount ,onBeforeUpdate } from 'vue'
+import ModalFormV2 from './ModalFormV2.vue'
+import { reactive,onBeforeMount ,onBeforeUpdate } from 'vue'
 
 
 let taskList = reactive([
@@ -40,6 +40,10 @@ function updateItemTable(updatedItem){
         if(taskList[index].id == updatedItem.id)
         {
             taskList[index].nombre = updatedItem.nombre;
+            if(updatedItem.status != null){
+                console.log('New status = ',  updatedItem.status)
+                taskList[index].tableName = updatedItem.status;
+            }
             return;
         }
         
@@ -51,17 +55,6 @@ function getTaskId(){
     return taskList.length + 1
 }
 
-function updateTableName(updatedTable){
-    for (let index = 0; index < taskList.length; index++) {
-        if(taskList[index].id == updatedItem.id)
-        {
-            taskList[index].nombre = updatedItem.nombre;
-            return;
-        }
-        
-    }
-
-}
 
 
 onBeforeMount(()=> {
@@ -77,12 +70,15 @@ onBeforeUpdate(()=> {
 })
 
 
-///////////////////////////
+</script>
 
+<script>
+function showSideModal(){
+    let modal = document.getElementById("sideModal");
+    modal.style.display = "block";
+    console.log(modal);
 
-
-
-
+}
 </script>
 
 
@@ -103,19 +99,29 @@ onBeforeUpdate(()=> {
     v-on:new-task = "addNewItem"
     > </ModalForm>
 
-    <SideModal 
+    <ModalFormV2 
     v-bind:workTablesOptions = workTables 
-    v-on:update-table-name = "updateTableName"
-    > </SideModal>
+    v-on:update-task = "updateItemTable"
+    > </ModalFormV2>
 
 
 </template>
 
 <style scoped>
-.table-container{
+    .table-container {
+    display: flex;
+    flex-direction: column;
+    
+    }
+
+
+@media (min-width: 1024px) {
+    .table-container{
     display: flex;
     flex-direction: row;
     place-items: flex-start;
+
+}
 
 }
 </style>
